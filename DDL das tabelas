@@ -1,67 +1,48 @@
--- public."Aluno" definition
+-- 1. Primeiro criar tabelas sem FKs (ou apenas com FKs que não causam dependência circular)
+CREATE TABLE public."Departamento" (
+	"Dept_ID" text NOT NULL,
+	"Nome" text NOT NULL,
+	"Chefe" text NULL,
+	CONSTRAINT "Departamento_pkey" PRIMARY KEY ("Dept_ID")
+);
 
--- Drop table
+CREATE TABLE public."Professor" (
+	"Prof_ID" text NOT NULL,
+	"Nome" text NOT NULL,
+	"Departamento" text NOT NULL,
+	CONSTRAINT "Professor_pkey" PRIMARY KEY ("Prof_ID")
+);
 
--- DROP TABLE public."Aluno";
+CREATE TABLE public."Curso" (
+	"Curso_ID" text NOT NULL,
+	"Nome" text NOT NULL,
+	"Coordenador" text NULL,
+	CONSTRAINT "Curso_pkey" PRIMARY KEY ("Curso_ID")
+);
+
+CREATE TABLE public."Disciplina" (
+	"Disc_ID" text NOT NULL,
+	"Nome" text NOT NULL,
+	"Departamento" text NOT NULL,
+  CONSTRAINT "Disciplina_Nome_key" UNIQUE ("Nome"),
+	CONSTRAINT "Disciplina_pkey" PRIMARY KEY ("Disc_ID")
+);
 
 CREATE TABLE public."Aluno" (
 	"RA" text NOT NULL,
 	"Nome" text NOT NULL,
 	"Curso" text NOT NULL,
 	"Semestre_Atual" int8 DEFAULT '1'::bigint NOT NULL,
-	CONSTRAINT "Aluno_RA_key" UNIQUE ("RA"),
-	CONSTRAINT "Aluno_pkey" PRIMARY KEY ("RA"),
-	CONSTRAINT "Aluno_Curso_fkey" FOREIGN KEY ("Curso") REFERENCES public."Curso"("Curso_ID")
+  CONSTRAINT "Aluno_RA_key" UNIQUE ("RA"),
+	CONSTRAINT "Aluno_pkey" PRIMARY KEY ("RA")
 );
 
--- public."Curso" definition
-
--- Drop table
-
--- DROP TABLE public."Curso";
-
-CREATE TABLE public."Curso" (
-	"Curso_ID" text NOT NULL,
-	"Nome" text NOT NULL,
-	"Coordenador" text NULL,
-	CONSTRAINT "Curso_pkey" PRIMARY KEY ("Curso_ID"),
-	CONSTRAINT "Curso_Coordenador_fkey" FOREIGN KEY ("Coordenador") REFERENCES public."Professor"("Prof_ID")
+CREATE TABLE public."TCC" (
+	"TCC_ID" text NOT NULL,
+	"Titulo" text NOT NULL,
+	"Orientador" text NOT NULL,
+	CONSTRAINT "TCC_pkey" PRIMARY KEY ("TCC_ID")
 );
-
--- public."Departamento" definition
-
--- Drop table
-
--- DROP TABLE public."Departamento";
-
-CREATE TABLE public."Departamento" (
-	"Dept_ID" text NOT NULL,
-	"Nome" text NOT NULL,
-	"Chefe" text NULL,
-	CONSTRAINT "Departamento_pkey" PRIMARY KEY ("Dept_ID"),
-	CONSTRAINT departamento_chefe_fkey FOREIGN KEY ("Chefe") REFERENCES public."Professor"("Prof_ID") ON DELETE CASCADE
-);
-
--- public."Disciplina" definition
-
--- Drop table
-
--- DROP TABLE public."Disciplina";
-
-CREATE TABLE public."Disciplina" (
-	"Disc_ID" text NOT NULL,
-	"Nome" text NOT NULL,
-	"Departamento" text NOT NULL,
-	CONSTRAINT "Disciplina_Nome_key" UNIQUE ("Nome"),
-	CONSTRAINT "Disciplina_pkey" PRIMARY KEY ("Disc_ID"),
-	CONSTRAINT "Disciplina_Departamento_fkey" FOREIGN KEY ("Departamento") REFERENCES public."Departamento"("Dept_ID")
-);
-
--- public."Historico_Aluno" definition
-
--- Drop table
-
--- DROP TABLE public."Historico_Aluno";
 
 CREATE TABLE public."Historico_Aluno" (
 	"RA" text NOT NULL,
@@ -71,17 +52,8 @@ CREATE TABLE public."Historico_Aluno" (
 	"Semestre" text NOT NULL,
 	"Ano" text NOT NULL,
 	"Aprovacao" text NULL,
-	CONSTRAINT "Historico_Aluno_pkey" PRIMARY KEY ("Index"),
-	CONSTRAINT "Historico_Aluno_Disc_ID_fkey" FOREIGN KEY ("Disc_ID") REFERENCES public."Disciplina"("Disc_ID"),
-	CONSTRAINT "Historico_Aluno_Disc_Nome_fkey" FOREIGN KEY ("Disc_Nome") REFERENCES public."Disciplina"("Nome"),
-	CONSTRAINT "Historico_Aluno_RA_fkey" FOREIGN KEY ("RA") REFERENCES public."Aluno"("RA")
+	CONSTRAINT "Historico_Aluno_pkey" PRIMARY KEY ("Index")
 );
-
--- public."Historico_Professor" definition
-
--- Drop table
-
--- DROP TABLE public."Historico_Professor";
 
 CREATE TABLE public."Historico_Professor" (
 	"Prof_ID" text NOT NULL,
@@ -89,65 +61,65 @@ CREATE TABLE public."Historico_Professor" (
 	"Semestre" text NOT NULL,
 	"Ano" text NOT NULL,
 	"Index" int8 NOT NULL,
-	CONSTRAINT "Historico_Professor_pkey" PRIMARY KEY ("Index"),
-	CONSTRAINT "Historico_Professor_Disc_ID_fkey" FOREIGN KEY ("Disc_ID") REFERENCES public."Disciplina"("Disc_ID"),
-	CONSTRAINT "Historico_Professor_Prof_ID_fkey" FOREIGN KEY ("Prof_ID") REFERENCES public."Professor"("Prof_ID")
+	CONSTRAINT "Historico_Professor_pkey" PRIMARY KEY ("Index")
 );
-
--- public."Matriz_Curricular" definition
-
--- Drop table
-
--- DROP TABLE public."Matriz_Curricular";
 
 CREATE TABLE public."Matriz_Curricular" (
 	"Curso_ID" text NOT NULL,
 	"Disc_ID" text NULL,
 	"Semestre" int8 NOT NULL,
 	"Index" int8 NOT NULL,
-	CONSTRAINT "Matriz_Curricular_pkey" PRIMARY KEY ("Index"),
-	CONSTRAINT "Matriz_Curricular_Curso_ID_fkey" FOREIGN KEY ("Curso_ID") REFERENCES public."Curso"("Curso_ID"),
-	CONSTRAINT "Matriz_Curricular_Disc_ID_fkey" FOREIGN KEY ("Disc_ID") REFERENCES public."Disciplina"("Disc_ID")
+	CONSTRAINT "Matriz_Curricular_pkey" PRIMARY KEY ("Index")
 );
-
--- public."Professor" definition
-
--- Drop table
-
--- DROP TABLE public."Professor";
-
-CREATE TABLE public."Professor" (
-	"Prof_ID" text NOT NULL,
-	"Nome" text NOT NULL,
-	"Departamento" text NOT NULL,
-	CONSTRAINT "Professor_Prof_ID_key" UNIQUE ("Prof_ID"),
-	CONSTRAINT professor_departamento_fkey FOREIGN KEY ("Departamento") REFERENCES public."Departamento"("Dept_ID") ON DELETE CASCADE
-);
-
--- public."TCC" definition
-
--- Drop table
-
--- DROP TABLE public."TCC";
-
-CREATE TABLE public."TCC" (
-	"TCC_ID" text NOT NULL,
-	"Titulo" text NOT NULL,
-	"Orientador" text NOT NULL,
-	CONSTRAINT "TCC_pkey" PRIMARY KEY ("TCC_ID"),
-	CONSTRAINT "TCC_Orientador_fkey" FOREIGN KEY ("Orientador") REFERENCES public."Professor"("Prof_ID")
-);
-
--- public."TCC_Aluno" definition
-
--- Drop table
-
--- DROP TABLE public."TCC_Aluno";
 
 CREATE TABLE public."TCC_Aluno" (
 	"RA" text NOT NULL,
 	"TCC_ID" text NULL,
-	CONSTRAINT "TCC_Aluno_pkey" PRIMARY KEY ("RA"),
-	CONSTRAINT "TCC_Aluno_RA_fkey" FOREIGN KEY ("RA") REFERENCES public."Aluno"("RA"),
-	CONSTRAINT "TCC_Aluno_TCC_ID_fkey" FOREIGN KEY ("TCC_ID") REFERENCES public."TCC"("TCC_ID")
+	CONSTRAINT "TCC_Aluno_pkey" PRIMARY KEY ("RA")
 );
+
+-- 2. Agora adicionar as FKs
+ALTER TABLE public."Departamento" ADD CONSTRAINT departamento_chefe_fkey 
+FOREIGN KEY ("Chefe") REFERENCES public."Professor"("Prof_ID") ON DELETE CASCADE;
+
+ALTER TABLE public."Professor" ADD CONSTRAINT professor_departamento_fkey 
+FOREIGN KEY ("Departamento") REFERENCES public."Departamento"("Dept_ID") ON DELETE CASCADE;
+
+ALTER TABLE public."Curso" ADD CONSTRAINT "Curso_Coordenador_fkey" 
+FOREIGN KEY ("Coordenador") REFERENCES public."Professor"("Prof_ID");
+
+ALTER TABLE public."Disciplina" ADD CONSTRAINT "Disciplina_Departamento_fkey" 
+FOREIGN KEY ("Departamento") REFERENCES public."Departamento"("Dept_ID");
+
+ALTER TABLE public."Aluno" ADD CONSTRAINT "Aluno_Curso_fkey" 
+FOREIGN KEY ("Curso") REFERENCES public."Curso"("Curso_ID");
+
+ALTER TABLE public."TCC" ADD CONSTRAINT "TCC_Orientador_fkey" 
+FOREIGN KEY ("Orientador") REFERENCES public."Professor"("Prof_ID");
+
+ALTER TABLE public."Historico_Aluno" ADD CONSTRAINT "Historico_Aluno_RA_fkey" 
+FOREIGN KEY ("RA") REFERENCES public."Aluno"("RA");
+
+ALTER TABLE public."Historico_Aluno" ADD CONSTRAINT "Historico_Aluno_Disc_ID_fkey" 
+FOREIGN KEY ("Disc_ID") REFERENCES public."Disciplina"("Disc_ID");
+
+ALTER TABLE public."Historico_Aluno" ADD CONSTRAINT "Historico_Aluno_Disc_Nome_fkey" 
+FOREIGN KEY ("Disc_Nome") REFERENCES public."Disciplina"("Nome");
+
+ALTER TABLE public."Historico_Professor" ADD CONSTRAINT "Historico_Professor_Prof_ID_fkey" 
+FOREIGN KEY ("Prof_ID") REFERENCES public."Professor"("Prof_ID");
+
+ALTER TABLE public."Historico_Professor" ADD CONSTRAINT "Historico_Professor_Disc_ID_fkey" 
+FOREIGN KEY ("Disc_ID") REFERENCES public."Disciplina"("Disc_ID");
+
+ALTER TABLE public."Matriz_Curricular" ADD CONSTRAINT "Matriz_Curricular_Curso_ID_fkey" 
+FOREIGN KEY ("Curso_ID") REFERENCES public."Curso"("Curso_ID");
+
+ALTER TABLE public."Matriz_Curricular" ADD CONSTRAINT "Matriz_Curricular_Disc_ID_fkey" 
+FOREIGN KEY ("Disc_ID") REFERENCES public."Disciplina"("Disc_ID");
+
+ALTER TABLE public."TCC_Aluno" ADD CONSTRAINT "TCC_Aluno_RA_fkey" 
+FOREIGN KEY ("RA") REFERENCES public."Aluno"("RA");
+
+ALTER TABLE public."TCC_Aluno" ADD CONSTRAINT "TCC_Aluno_TCC_ID_fkey" 
+FOREIGN KEY ("TCC_ID") REFERENCES public."TCC"("TCC_ID");
