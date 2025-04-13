@@ -13,4 +13,5 @@ JOIN "Matriz_Curricular" mc ON d."Disc_ID" = mc."Disc_ID"
 JOIN "Curso" c ON mc."Curso_ID" = c."Curso_ID"
 WHERE hp."Prof_ID" = 'PC5963'
     AND hp."Ano" = '2025'
+    AND hp."Semestre" = 'Primeiro'
 ORDER BY c."Nome", hp."Ano", hp."Semestre", d."Nome";
