@@ -1,4 +1,4 @@
--- Query: Recupere os nomes de todos os estudantes que cursaram "Fundamentos de Algoritmos" (course_id = 'CC8882') no segundo semestre de 2024
+-- Query: Recupere os nomes de todos os estudantes que cursaram "Fundamentos de Algoritmos" no segundo semestre de 2024
 
 SELECT DISTINCT
     a."RA",
@@ -7,7 +7,7 @@ SELECT DISTINCT
     ha."Ano"
 FROM "Aluno" a
 JOIN "Historico_Aluno" ha ON a."RA" = ha."RA"
-WHERE ha."Disc_ID" = 'CC8882'
+WHERE ha."Disc_ID" = 'CC3472'
     AND ha."Semestre" = 'Segundo'
     AND ha."Ano" = '2024'
 ORDER BY a."Nome";
