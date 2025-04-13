@@ -6,4 +6,4 @@ SELECT
 FROM "TCC" t
 JOIN "TCC_Aluno" ta ON t."TCC_ID" = ta."TCC_ID"
 JOIN "Aluno" a ON ta."RA" = a."RA"
-WHERE t."Orientador" = 'PD3491';
+WHERE t."Orientador" = 'PD4593';
