@@ -6,7 +6,7 @@ SELECT
 FROM "Matriz_Curricular" m
 JOIN "Disciplina" d ON m."Disc_ID" = d."Disc_ID"
 JOIN "Curso" c ON m."Curso_ID" = c."Curso_ID"
-WHERE c."Curso_ID" = 'C07'
+WHERE c."Curso_ID" = 'C42'
 ORDER BY m."Semestre"
 
 
@@ -17,5 +17,5 @@ SELECT
 FROM "Matriz_Curricular" m
 JOIN "Disciplina" d ON m."Disc_ID" = d."Disc_ID"
 JOIN "Curso" c ON m."Curso_ID" = c."Curso_ID"
-WHERE c."Curso_ID" = 'C98'
+WHERE c."Curso_ID" = 'C97'
 ORDER BY m."Semestre"
