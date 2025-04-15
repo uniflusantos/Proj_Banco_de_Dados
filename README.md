@@ -36,7 +36,7 @@ Para executar o projeto, primeiramente deve-se realizar o donwload dos arquivos 
 
 ## Modelo Relacional
 
-![MR](https://github.com/user-attachments/assets/0a477b70-d667-49c5-a034-5a453779709b)
+![MR](https://github.com/user-attachments/assets/81cc88a3-b1cf-4986-947c-a046f6853987)
 
 ## Modelo Entidade Relacionamento
 
