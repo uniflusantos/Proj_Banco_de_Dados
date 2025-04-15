@@ -918,7 +918,7 @@ if __name__ == '__main__':
         cursor = conexao.cursor()
         print("Conexão estabelecida com sucesso!")
 
-        # 1. Insere Cursos
+        #Cursos
         print("\nInserindo cursos...")
         for i in range(len(ID_Cursos)):
             cursor.execute("""
@@ -927,7 +927,7 @@ if __name__ == '__main__':
                 """, (ID_Cursos[i], Nomes_Curso[i]))
         print(f"{len(ID_Cursos)} cursos inseridos com sucesso!")
 
-        # 2. Insere Departamentos
+        #Departamentos
         print("\nInserindo departamentos...")
         for i in range(len(ID_Depts)):
             cursor.execute("""
@@ -936,7 +936,7 @@ if __name__ == '__main__':
                 """, (ID_Depts[i], Nomes_Dept[i]))
         print(f"{len(ID_Depts)} departamentos inseridos com sucesso!")
 
-        # 3. Insere Professores
+        #Professores
         print("\nInserindo professores...")
         for i in range(len(ID_Profs)):
             cursor.execute("""
@@ -945,7 +945,7 @@ if __name__ == '__main__':
                 """, (ID_Profs[i], Nomes_Prof[i], Profs_Dept[i]))
         print(f"{len(ID_Profs)} professores inseridos com sucesso!")
 
-        # 4. Atualiza Chefes de Departamento
+        #Atualiza Chefes de Departamento
         print("\nAtualizando chefes de departamento...")
         for i in range(len(Chefes_Dept)):
             cursor.execute("""
@@ -955,7 +955,7 @@ if __name__ == '__main__':
                 """, (Chefes_Dept[i], ID_Depts[i]))
         print(f"{len(Chefes_Dept)} chefes de departamento atualizados com sucesso!")
 
-        # 5. Atualiza Coordenadores de Curso
+        #Atualiza Coordenadores de Curso
         print("\nAtualizando coordenadores de curso...")
         for i in range(len(Curso_Cord)):
             cursor.execute("""
@@ -965,7 +965,7 @@ if __name__ == '__main__':
                 """, (Curso_Cord[i], ID_Cursos[i]))
         print(f"{len(Curso_Cord)} coordenadores de curso atualizados com sucesso!")
 
-        # 6. Insere Disciplinas (com tratamento para nomes duplicados)
+        #Disciplinas
         print("\nInserindo disciplinas...")
         disciplinas_inseridas = 0
         for i in range(len(IDS_Disc)):
@@ -982,7 +982,7 @@ if __name__ == '__main__':
                 continue
         print(f"{disciplinas_inseridas} disciplinas inseridas com sucesso!")
 
-        # 7. Insere Alunos
+        #Alunos
         print("\nInserindo alunos...")
         for i in range(len(IDS_Aluno)):
             cursor.execute("""
@@ -991,7 +991,7 @@ if __name__ == '__main__':
                 """, (IDS_Aluno[i], Nomes_Aluno[i], Cursos_Alunos[i], SAS_Aluno[i]))
         print(f"{len(IDS_Aluno)} alunos inseridos com sucesso!")
 
-        # 8. Insere TCCs
+        #TCCs
         print("\nInserindo TCCs...")
         for i in range(len(ID_TCCs)):
             cursor.execute("""
@@ -1000,7 +1000,7 @@ if __name__ == '__main__':
                 """, (ID_TCCs[i], TCC_Titulos[i], TCC_Orientadores[i]))
         print(f"{len(ID_TCCs)} TCCs inseridos com sucesso!")
 
-        # 9. Insere TCC_Aluno
+        #TCC_Aluno
         print("\nVinculando alunos a TCCs...")
         for i in range(len(Alunos_TCC)):
             cursor.execute("""
@@ -1009,7 +1009,7 @@ if __name__ == '__main__':
                 """, (Alunos_TCC[i], TCC_ID_Aluno[i]))
         print(f"{len(Alunos_TCC)} vínculos aluno-TCC criados com sucesso!")
 
-        # 10. Insere Matriz Curricular
+        #Matriz Curricular
         print("\nInserindo matriz curricular...")
         for i in range(len(Cursos_Disc)):
             disc = Disc_CC[i] if i < 16 else Disc_CD[i - 16]
@@ -1019,7 +1019,7 @@ if __name__ == '__main__':
                 """, (Cursos_Disc[i], disc, Semestres_Matriz[i], Index_Matriz[i]))
         print(f"{len(Cursos_Disc)} itens da matriz curricular inseridos com sucesso!")
 
-        # 11. Insere Histórico de Alunos
+        #Histórico de Alunos
         print("\nInserindo histórico de alunos...")
         for i in range(len(RA_Hist)):
             cursor.execute("""
@@ -1029,7 +1029,7 @@ if __name__ == '__main__':
                      Sem_Hist[i], Anos_Hist[i], Aprov_Hist[i]))
         print(f"{len(RA_Hist)} registros de histórico de alunos inseridos com sucesso!")
 
-        # 12. Insere Histórico de Professores
+        #Histórico de Professores
         print("\nInserindo histórico de professores...")
         for i in range(len(Prof_ID_Hist)):
             cursor.execute("""
@@ -1039,7 +1039,7 @@ if __name__ == '__main__':
                      Anos_Hist_Prof[i], Index_Hist_Prof[i]))
         print(f"{len(Prof_ID_Hist)} registros de histórico de professores inseridos com sucesso!")
 
-        # 13. Insere Aluno Especial (com reprovação)
+        #Aluno com reprovação
         print("\nInserindo aluno especial (com reprovação)...")
         cursor.execute("""
             INSERT INTO "Aluno" ("RA", "Nome", "Curso", "Semestre_Atual")
@@ -1047,7 +1047,7 @@ if __name__ == '__main__':
             """, (RA_Reprov[0], Nome_Reprov[0], Curso_Reprov[0], Sem_Reprov[0]))
         print("Aluno especial inserido com sucesso!")
 
-        # 14. Insere Histórico do Aluno Especial
+        #Histórico do aluno com reprovação
         print("\nInserindo histórico do aluno especial...")
         for i in range(len(RA_Reprov_Hist)):
             cursor.execute("""
@@ -1058,7 +1058,7 @@ if __name__ == '__main__':
                      Aprov_Reprov_Hist[i]))
         print(f"{len(RA_Reprov_Hist)} registros de histórico do aluno especial inseridos com sucesso!")
 
-        # 15. Insere Professor Especial
+        #Professor que já lecionou outra matéria
         print("\nInserindo professor especial...")
         cursor.execute("""
             INSERT INTO "Professor" ("Prof_ID", "Nome", "Departamento")
@@ -1066,7 +1066,7 @@ if __name__ == '__main__':
             """, (ID_Prof_Lec[0], Nome_Prof_Lec[0], Dept_Lec))
         print("Professor especial inserido com sucesso!")
 
-        # 16. Insere Histórico do Professor Especial
+        #Histórico do professor que já lecionou outra matéria
         print("\nInserindo histórico do professor especial...")
         for i in range(len(ID_Prof_Lec_Hist)):
             cursor.execute("""
@@ -1076,7 +1076,6 @@ if __name__ == '__main__':
                      Ano_Lec[i], Index_Lec[i]))
         print(f"{len(ID_Prof_Lec_Hist)} registros de histórico do professor especial inseridos com sucesso!")
 
-        # Commit final para todas as operações
         conexao.commit()
         print("\nOperações concluídas com sucesso! Todos os dados foram inseridos.")
 
