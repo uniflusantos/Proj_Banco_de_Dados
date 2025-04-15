@@ -1,4 +1,4 @@
--- Encontra os estudantes que cursaram "Engenharia de Software" e "Redes de Computadores" no mesmo semestre (AND)
+-- Encontra os estudantes que cursaram "Fundamentos de Algoritmos" e "Cálculo I" no mesmo semestre 
 SELECT 
     a."Nome" AS nome_aluno,
     a."RA" AS ra_aluno,
