@@ -1,4 +1,4 @@
--- Query: Liste os IDs dos professores que ensinam mais de um curso
+-- Query: Liste os IDs dos professores que ensinam matérias para mais de um curso
 
 SELECT 
     hp."Prof_ID",
